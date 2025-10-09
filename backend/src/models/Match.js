@@ -15,11 +15,11 @@ const Match = sequelize.define('Match', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  goalsTeamA: {
+  goalsHomeTeam: {
     type: DataTypes.INTEGER,
     defaultValue: null
   },
-  goalsTeamB: {
+  goalsAwayTeam: {
     type: DataTypes.INTEGER,
     defaultValue: null
   },
