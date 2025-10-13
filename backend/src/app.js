@@ -5,6 +5,7 @@ const tournamentRoutes = require('./routes/tournamentRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const playerRoutes = require('./routes/playerRoutes');
 const matchRoutes = require('./routes/matchRoutes');
+const standingsRoutes = require('./routes/standingsRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/api/tournaments', tournamentRoutes);
 app.use('/api/tournaments', teamRoutes);
 app.use('/api/tournaments', playerRoutes);
 app.use('/api/tournaments', matchRoutes);
+app.use('/api/tournaments', standingsRoutes);
 
 const PORT = process.env.PORT || 3000;
 
