@@ -1,6 +1,6 @@
 const { Tournament, Team, Match } = require('../models');
 
-const calculatePredictions = async (tournamentId) => {
+const calculatePredictions = async (req, res) => {
   try {
     const { tournamentId } = req.params;
     const userId = req.user.userId;
@@ -85,7 +85,7 @@ const calculatePredictions = async (tournamentId) => {
 };
 
 const calculateTournamentStats = (matches) => {
-  const totalGoals = 0;
+  let totalGoals = 0;
   let totalMatches = matches.length;
 
   matches.forEach(match => {

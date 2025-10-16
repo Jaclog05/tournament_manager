@@ -1,3 +1,5 @@
 /node_modules
 /.env
 /src/test-connection.js
+/src/clean-database.js
+/src/seed-predictions-data.js
