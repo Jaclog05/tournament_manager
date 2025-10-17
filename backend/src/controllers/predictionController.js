@@ -165,9 +165,7 @@ const generatePredictions = (futureMatches, teamStats, tournamentStats) => {
     const expectedGoalsHome = homeTeam.attackStrength * awayTeam.defenseStrength * tournamentStats.averageGoalsPerMatch;
     const expectedGoalsAway = awayTeam.attackStrength * homeTeam.defenseStrength * tournamentStats.averageGoalsPerMatch;
 
-    const homeWinProbability = calculateWinProbability(expectedGoalsHome, expectedGoalsAway, 'home');
-    const awayWinProbability = calculateWinProbability(expectedGoalsAway, expectedGoalsHome, 'away');
-    const drawProbability = calculateDrawProbability(expectedGoalsHome, expectedGoalsAway);
+    const { homeWinProb, drawProb, awayWinProb } = calculateNormalizedProbabilities(expectedGoalsHome, expectedGoalsAway)
 
     return {
       matchId: match.id,
@@ -184,34 +182,43 @@ const generatePredictions = (futureMatches, teamStats, tournamentStats) => {
         expectedGoalsHome: Math.round(expectedGoalsHome * 10) / 10,
         expectedGoalsAway: Math.round(expectedGoalsAway * 10) / 10,
         probabilities: {
-          homeWin: Math.round(homeWinProbability * 100),
-          draw: Math.round(drawProbability * 100),
-          awayWin: Math.round(awayWinProbability * 100)
+          homeWin: Math.round(homeWinProb * 100),
+          draw: Math.round(drawProb * 100),
+          awayWin: Math.round(awayWinProb * 100)
         },
-        predictedResult: getPredictedResult(homeWinProbability, drawProbability, awayWinProbability)
+        predictedResult: getPredictedResult(homeWinProb, drawProb, awayWinProb)
       }
     };
   });
 };
 
-const calculateWinProbability = (expectedGoalsA, expectedGoalsB, type) => {
-  const goalDifference = expectedGoalsA - expectedGoalsB;
+const calculateNormalizedProbabilities = (expectedGoalsHome, expectedGoalsAway) => {
+  const goalDifference = expectedGoalsHome - expectedGoalsAway;
 
-  if (type === 'home') {
-    return Math.max(0.1, Math.min(0.9, 0.5 + goalDifference * 0.2));
-  } else {
-    return Math.max(0.1, Math.min(0.9, 0.5 - goalDifference * 0.2));
-  }
-};
+  let homeWinProb = 0.4 + goalDifference * 0.2;
+  let awayWinProb = 0.4 - goalDifference * 0.2;
+  let drawProb = 0.2 - Math.abs(goalDifference) * 0.1;
 
-const calculateDrawProbability = (expectedGoalsHome, expectedGoalsAway) => {
-  const goalDifference = Math.abs(expectedGoalsHome - expectedGoalsAway);
-  return Math.max(0.1, Math.min(0.4, 0.3 - goalDifference * 0.1));
-};
+  homeWinProb = Math.max(0.1, Math.min(0.8, homeWinProb));
+  awayWinProb = Math.max(0.1, Math.min(0.8, awayWinProb));
+  drawProb = Math.max(0.05, Math.min(0.4, drawProb));
+
+  const total = homeWinProb + drawProb + awayWinProb;
+  homeWinProb = homeWinProb / total;
+  drawProb = drawProb / total;
+  awayWinProb = awayWinProb / total;
+
+  return {
+    homeWinProb,
+    drawProb,
+    awayWinProb
+  };
+}
 
 const getPredictedResult = (homeWin, draw, awayWin) => {
-  if (homeWin >= draw && homeWin >= awayWin) return '1';
-  if (awayWin >= homeWin && awayWin >= draw) return '2';
+  const maxProb = Math.max(homeWin, draw, awayWin);
+  if (maxProb === homeWin) return '1';
+  if (maxProb === awayWin) return '2';
   return 'X';
 };
 
