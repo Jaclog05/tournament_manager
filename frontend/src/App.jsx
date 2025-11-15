@@ -7,9 +7,9 @@ import Login from './pages/Auth/Login'
 function App() {
   return (
     <AuthProvider>
-      <div className="App">
+      <div className="App d-flex flex-column min-vh-100">
         <Navigation />
-        <main className='container-fluid px-0'>
+        <main className='flex-grow-1'>
           <Routes>
             <Route path="/login" element={<Login />} />
           </Routes>

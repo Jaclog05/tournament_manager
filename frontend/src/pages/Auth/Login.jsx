@@ -33,42 +33,40 @@ const Login = () => {
   }
 
   return (
-    <Container>
-      <Row className="justify-content-center mt-5">
-        <Col md={6} lg={4}>
+    <Container className='vh-100'>
+      <Row className="vh-100 justify-content-center align-items-center">
+        <Col md={5} lg={4}>
           <Card className="shadow">
-            <Card.Body>
-              <div className="text-center mb-4">
-                <h2 className="text-primary">Iniciar Sesión</h2>
-                <p className="text-muted">Accede a tu cuenta</p>
-              </div>
-
+            <Card.Body className="d-flex flex-column">
               {error && <Alert variant="danger">{error}</Alert>}
+              <img
+                src="/main-logo.svg"
+                alt="Tournament Manager Logo"
+                width="120px"
+                style={{margin: "0 auto"}}
+              />
 
-              <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="tu@email.com"
-                  />
-                </Form.Group>
+              <Form
+                onSubmit={handleSubmit}
+                style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}
+              >
+                <Form.Control
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Correo electrónico..."
+                />
 
-                <Form.Group className="mb-3">
-                  <Form.Label>Contraseña</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                    placeholder="Tu contraseña"
-                  />
-                </Form.Group>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="Contraseña..."
+                />
 
                 <Button 
                   variant="primary" 
@@ -76,13 +74,13 @@ const Login = () => {
                   className="w-100" 
                   disabled={loading}
                 >
-                  {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+                  {loading ? 'Iniciando sesión...' : 'Ingresar'}
                 </Button>
               </Form>
 
-              <div className="text-center mt-3">
-                <p className="text-muted">
-                  ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>
+              <div className="text-center my-2">
+                <p className="text-muted mb-0">
+                  ¿No tienes cuenta aún? <Link to="/register">Regístrate aquí</Link>
                 </p>
               </div>
             </Card.Body>

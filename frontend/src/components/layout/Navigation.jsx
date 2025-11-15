@@ -2,12 +2,16 @@ import React from 'react'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useAuth } from '../../context/AuthContext'
+import { useLocation } from 'react-router-dom'
 
 const Navigation = () => {
   const { user, logout } = useAuth()
+  const location = useLocation()
+
+  if(['/login', '/register'].includes(location.pathname)) return null
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
+    <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
         <LinkContainer to="/">
           <Navbar.Brand>
