@@ -1,59 +1,50 @@
 import React from 'react'
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
+import { Navbar, Nav, Container } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { useAuth } from '../../context/AuthContext'
 import { useLocation } from 'react-router-dom'
 
 const Navigation = () => {
-  const { user, logout } = useAuth()
   const location = useLocation()
 
   if(['/login', '/register'].includes(location.pathname)) return null
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      <Container>
-        <LinkContainer to="/">
+    <Navbar bg="light" data-bs-theme="light">
+      <Container className='gap-3'>
+        <LinkContainer to="/dashboard" style={{fontSize: '16px', fontWeight: 'bold'}}>
           <Navbar.Brand>
-            <i className="bi bi-trophy-fill me-2"></i>
-            Tournament Manager
+            <img
+              src="/main-logo.svg"
+              alt="Tournament Manager Logo"
+              width="25px"
+              style={{marginRight: "1rem"}}
+            />
+            MyTournamentApp
           </Navbar.Brand>
         </LinkContainer>
-        
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            {user && (
-              <>
-                <LinkContainer to="/dashboard">
-                  <Nav.Link>Dashboard</Nav.Link>
-                </LinkContainer>
-              </>
-            )}
-          </Nav>
-          
-          <Nav>
-            {user ? (
-              <NavDropdown title={user.name} id="user-dropdown">
-                <LinkContainer to="/profile">
-                  <NavDropdown.Item>Perfil</NavDropdown.Item>
-                </LinkContainer>
-                <NavDropdown.Divider />
-                <NavDropdown.Item onClick={logout}>
-                  Cerrar Sesión
-                </NavDropdown.Item>
-              </NavDropdown>
-            ) : (
-              <>
-                <LinkContainer to="/login">
-                  <Nav.Link>Iniciar Sesión</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/register">
-                  <Nav.Link>Registrarse</Nav.Link>
-                </LinkContainer>
-              </>
-            )}
-          </Nav>
+        <Nav variant="pills" defaultActiveKey="/dashboard" style={{fontSize: '12px'}}>
+          <Nav.Item>
+            <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="my-tournaments">Mis Torneos</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="settings">
+              Configuration
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            Jhon Doe
+          </Navbar.Text>
+          <img
+            src="/user-logo.svg"
+            alt="User Logo"
+            width="25px"
+            style={{marginLeft: "0.5rem"}}
+          />
         </Navbar.Collapse>
       </Container>
     </Navbar>
