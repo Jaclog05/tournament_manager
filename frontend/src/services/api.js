@@ -17,7 +17,7 @@ api.interceptors.request.use((config) => {
 export const authService = {
   login: (email, password) => api.post('/auth/login', { email, password }),
   register: (email, password, name) => api.post('/auth/register', { email, password, name }),
-  verifyToken: () => api.get('/user/profile')
+  getUserProfile: () => api.get('/users/profile')
 };
 
 export const tournamentService = {
