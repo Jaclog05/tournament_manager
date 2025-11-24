@@ -1,16 +1,22 @@
 import React from 'react'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 
 const Navigation = () => {
   const location = useLocation()
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
 
   if(['/login', '/register'].includes(location.pathname)) return null
 
   const getFirstName = (fullName = "") => fullName.split(" ")[0];
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
 
   return (
     <Navbar bg="light" data-bs-theme="light">
@@ -40,9 +46,11 @@ const Navigation = () => {
           </Nav.Item>
         </Nav>
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text>
-            { user && getFirstName(user.name) }
-          </Navbar.Text>
+          <NavDropdown title={`${user ? getFirstName(user.name) : 'Account'}`} id="basic-nav-dropdown" align="end">
+            <NavDropdown.Item href='/profile'>Perfil de Usuario</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item onClick={handleLogout}>Cerrar Sesión</NavDropdown.Item>
+          </NavDropdown>
           <img
             src="/user-logo.svg"
             alt="User Logo"
