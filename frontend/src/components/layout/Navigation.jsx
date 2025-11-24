@@ -2,11 +2,15 @@ import React from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useLocation } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 
 const Navigation = () => {
   const location = useLocation()
+  const { user } = useAuth()
 
   if(['/login', '/register'].includes(location.pathname)) return null
+
+  const getFirstName = (fullName = "") => fullName.split(" ")[0];
 
   return (
     <Navbar bg="light" data-bs-theme="light">
@@ -37,7 +41,7 @@ const Navigation = () => {
         </Nav>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            Jhon Doe
+            { user && getFirstName(user.name) }
           </Navbar.Text>
           <img
             src="/user-logo.svg"
