@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       authService.verifyToken()
         .then((userData) => {
-          setUser(userData);
+          setUser(userData.data);
         })
         .catch(() => {
           localStorage.removeItem('token');

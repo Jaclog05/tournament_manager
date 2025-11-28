@@ -17,7 +17,12 @@ api.interceptors.request.use((config) => {
 export const authService = {
   login: (email, password) => api.post('/auth/login', { email, password }),
   register: (email, password, name) => api.post('/auth/register', { email, password, name }),
-  verifyToken: () => api.get('/user/profile')
+  verifyToken: () => api.get('/users/profile')
+};
+
+export const dashboardService = {
+  getStats: () => api.get('/dashboard/stats'),
+  getActiveTournaments: () => api.get('/dashboard/active-tournaments')
 };
 
 export const tournamentService = {
