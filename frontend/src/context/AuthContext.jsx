@@ -14,11 +14,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      authService.verifyToken()
+      authService.getUserProfile()
         .then((userData) => {
           setUser(userData.data);
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error('Error verificando token:', error);
           localStorage.removeItem('token');
         })
         .finally(() => {
