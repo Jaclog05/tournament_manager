@@ -19,7 +19,7 @@ const Navigation = () => {
   }
 
   return (
-    <Navbar bg="light" data-bs-theme="light">
+    <Navbar fixed="top" bg="light" data-bs-theme="light">
       <Container className='gap-3'>
         <LinkContainer to="/dashboard" style={{fontSize: '16px', fontWeight: 'bold'}}>
           <Navbar.Brand>
