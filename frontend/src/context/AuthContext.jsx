@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      authService.getUserProfile()
+      authService.verifyToken()
         .then((userData) => {
           setUser(userData.data);
         })

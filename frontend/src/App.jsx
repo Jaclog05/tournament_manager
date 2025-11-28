@@ -4,7 +4,7 @@ import { AuthProvider } from './context/AuthContext'
 import Navigation from './components/layout/Navigation'
 import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
-import Dashboard from './pages/Dashboard/Dashboard'
+import Dashboard from './pages/Dashboard'
 import ProtectedRoute from './components/layout/ProtectedRoute'
 
 function App() {
