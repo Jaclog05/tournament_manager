@@ -32,14 +32,14 @@ function Dashboard() {
 
   if (loading) {
     return (
-      <div className='vh-100 w-100 d-flex flex-column pt-4 px-5 gap-3'>
+      <div className='vh-100 w-100 d-flex flex-column px-5 gap-3' style={{paddingTop: '75px'}}>
         <div className="text-center">Cargando...</div>
       </div>
     )
   }
 
   return (
-    <div className='vh-100 w-100 d-flex flex-column pt-4 px-5 gap-3'>
+    <div className='vh-100 w-100 d-flex flex-column px-5 gap-3' style={{paddingTop: '75px'}}>
       <h1 style={{fontSize: '36px'}}>Hola, {user?.name || 'Usuario'}</h1>
       
       <div id="section" className="p-3">
