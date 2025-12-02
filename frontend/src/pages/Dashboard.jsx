@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import QuickStatCard from '../../src/components/cards/QuickStatCard'
 import TournamentCard from '../../src/components/cards/TournamentCard'
 import { dashboardService } from '../../src/services/api'
@@ -66,11 +67,13 @@ function Dashboard() {
           style={{gap: '1rem'}}
         >
           {activeTournaments.map(tournament => (
-            <TournamentCard 
-              key={tournament.id}
-              tournamentName={tournament.name}
-              teamsAmount={tournament.teams.length}
-            />
+            <Link to={`/tournaments/${tournament.id}`} style={{textDecoration: 'none'}}>
+              <TournamentCard
+                key={tournament.id}
+                tournamentName={tournament.name}
+                teamsAmount={tournament.teams.length}
+              />
+            </Link>
           ))}
         </div>
       </div>
