@@ -7,6 +7,7 @@ import Register from './pages/Auth/Register'
 import Dashboard from './pages/Dashboard'
 import MyTournaments from './pages/MyTournaments'
 import Tournament from './pages/Tournament'
+import TournamentTeams from './pages/TournamentTeams'
 import ProtectedRoute from './components/layout/ProtectedRoute'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/my-tournaments" element={<ProtectedRoute><MyTournaments /></ProtectedRoute>} />
             <Route path="/tournaments/:id" element={<ProtectedRoute><Tournament /></ProtectedRoute>} />
+            <Route path="/tournaments/:id/teams" element={<ProtectedRoute><TournamentTeams /></ProtectedRoute>} />
           </Routes>
         </main>
       </div>
