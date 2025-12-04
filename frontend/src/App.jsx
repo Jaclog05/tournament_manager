@@ -5,6 +5,7 @@ import Navigation from './components/layout/Navigation'
 import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
 import Dashboard from './pages/Dashboard'
+import MyTournaments from './pages/MyTournaments'
 import Tournament from './pages/Tournament'
 import ProtectedRoute from './components/layout/ProtectedRoute'
 
@@ -19,6 +20,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/my-tournaments" element={<ProtectedRoute><MyTournaments /></ProtectedRoute>} />
             <Route path="/tournaments/:id" element={<ProtectedRoute><Tournament /></ProtectedRoute>} />
           </Routes>
         </main>
