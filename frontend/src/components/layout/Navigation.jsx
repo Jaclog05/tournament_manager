@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, matchPath } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 
 const Navigation = () => {
@@ -11,7 +11,13 @@ const Navigation = () => {
 
   if(['/login', '/register'].includes(location.pathname)) return null
 
+  const tournamentMatch = matchPath('/tournaments/:id/*', location.pathname)
+  const isTournamentMode = !!tournamentMatch;
+  const tournamentId = tournamentMatch?.params?.id;
+
   const getFirstName = (fullName = "") => fullName.split(" ")[0];
+
+  const tournamentName = "Liga Amateur 2024"; /* TODO: Fetch tournament name based on tournamentId */
 
   const handleLogout = () => {
     logout()
@@ -32,18 +38,41 @@ const Navigation = () => {
             MyTournamentApp
           </Navbar.Brand>
         </LinkContainer>
-        <Nav variant="pills" defaultActiveKey="/dashboard" style={{fontSize: '12px'}}>
-          <Nav.Item>
-            <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="my-tournaments">Mis Torneos</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="settings">
-              Configuration
-            </Nav.Link>
-          </Nav.Item>
+        <Nav variant="pills" className='me-auto' style={{fontSize: '12px', alignItems: 'center'}}>
+          {isTournamentMode ? (
+            <>
+              <Navbar.Text className="fw-bold text-dark me-3 d-none d-lg-block" style={{ borderRight: "1px solid #ccc", paddingRight: "15px"}}>
+                {tournamentName}
+              </Navbar.Text>
+              <LinkContainer to={`/tournaments/${tournamentId}`} end>
+                <Nav.Link>Resumen</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to={`/tournaments/${tournamentId}/teams`}>
+                <Nav.Link>Equipos</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to={`/tournaments/${tournamentId}/matches`}>
+                <Nav.Link>Partidos</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to={`/tournaments/${tournamentId}/standings`}>
+                <Nav.Link>Tabla</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to={`/tournaments/${tournamentId}/predictions`}>
+                <Nav.Link>Predicciones</Nav.Link>
+              </LinkContainer>
+            </>
+          ) : (
+            <>
+              <LinkContainer to={`dashboard`}>
+                <Nav.Link>Dashboard</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to={`/my-tournaments`}>
+                <Nav.Link>Mis Torneos</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to={`/settings`}>
+                <Nav.Link>Configuracion</Nav.Link>
+              </LinkContainer>
+            </>
+          )}
         </Nav>
         <Navbar.Collapse className="justify-content-end">
           <NavDropdown title={`${user ? getFirstName(user.name) : 'Account'}`} id="basic-nav-dropdown" align="end">
