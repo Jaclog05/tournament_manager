@@ -67,9 +67,8 @@ function Dashboard() {
           style={{gap: '1rem'}}
         >
           {activeTournaments.map(tournament => (
-            <Link to={`/tournaments/${tournament.id}`} style={{textDecoration: 'none'}}>
+            <Link key={tournament.id} to={`/tournaments/${tournament.id}`} style={{textDecoration: 'none'}}>
               <TournamentCard
-                key={tournament.id}
                 tournamentName={tournament.name}
                 teamsAmount={tournament.teams.length}
               />

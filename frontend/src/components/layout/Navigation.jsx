@@ -44,7 +44,7 @@ const Navigation = () => {
               <Navbar.Text className="fw-bold text-dark me-3 d-none d-lg-block" style={{ borderRight: "1px solid #ccc", paddingRight: "15px"}}>
                 {tournamentName}
               </Navbar.Text>
-              <LinkContainer to={`/tournaments/${tournamentId}`} end>
+              <LinkContainer to={`/tournaments/${tournamentId}`} end="true">
                 <Nav.Link>Resumen</Nav.Link>
               </LinkContainer>
               <LinkContainer to={`/tournaments/${tournamentId}/teams`}>
