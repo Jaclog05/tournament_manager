@@ -16,7 +16,8 @@ Team.belongsTo(Tournament, { foreignKey: 'tournamentId' });
 Team.hasMany(Player, { foreignKey: 'teamId' });
 Player.belongsTo(Team, { foreignKey: 'teamId' });
 
-Tournament.hasMany(Match, { foreignKey: 'tournamentId' });
+Tournament.hasMany(Match, { foreignKey: 'tournamentId', as: 'FinishedMatches' });
+Tournament.hasMany(Match, { foreignKey: 'tournamentId', as: 'UpcomingMatches'});
 Match.belongsTo(Tournament, { foreignKey: 'tournamentId' });
 
 Match.belongsTo(Team, { as: 'homeTeam', foreignKey: 'homeTeamId' });

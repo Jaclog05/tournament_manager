@@ -82,6 +82,37 @@ const getTournamentById = async (req, res) => {
     const { id } = req.params;
     const userId = req.user.userId;
 
+    const teamInclude = [
+      {
+        model: Team,
+        as: 'homeTeam',
+        attributes: ['id', 'name']
+      },
+      {
+        model: Team,
+        as: 'awayTeam',
+        attributes: ['id', 'name']
+      }
+    ];
+
+    const finishedMatchesInclude = {
+      model: Match,
+      as: 'FinishedMatches',
+      where: { status: 'finished' },
+      order: [['matchDate', 'DESC']],
+      include: teamInclude,
+      separate: true
+    }
+
+    const upcomingMatchesInclude = {
+      model: Match,
+      as: 'UpcomingMatches',
+      where: { status: 'scheduled' },
+      order: [['matchDate', 'ASC']],
+      include: teamInclude,
+      separate: true
+    }
+
     const tournament = await Tournament.findOne({
       where: { id, createdBy: userId },
       include: [
@@ -93,21 +124,8 @@ const getTournamentById = async (req, res) => {
           model: Team,
           attributes: ['id', 'name']
         },
-        {
-          model: Match,
-          include: [
-            { 
-              model: Team,
-              as: 'homeTeam',
-              attributes: ['id', 'name']
-            },
-            { 
-              model: Team,
-              as: 'awayTeam',
-              attributes: ['id', 'name']
-            }
-          ] 
-        }
+        finishedMatchesInclude,
+        upcomingMatchesInclude
       ]
     })
 
