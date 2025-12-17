@@ -11,6 +11,7 @@ import TournamentTeams from './pages/TournamentTeams'
 import TournamentStandings from './pages/TournamentStandings'
 import TournamentPredictions from './pages/TournamentPredictions'
 import ProtectedRoute from './components/layout/ProtectedRoute'
+import TournamentMatches from './pages/TournamentMatches'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/my-tournaments" element={<ProtectedRoute><MyTournaments /></ProtectedRoute>} />
             <Route path="/tournaments/:id" element={<ProtectedRoute><Tournament /></ProtectedRoute>} />
             <Route path="/tournaments/:id/teams" element={<ProtectedRoute><TournamentTeams /></ProtectedRoute>} />
+            <Route path="/tournaments/:id/matches" element={<ProtectedRoute><TournamentMatches /></ProtectedRoute>} />
             <Route path='/tournaments/:id/standings' element={<ProtectedRoute><TournamentStandings /></ProtectedRoute>} />
             <Route path='/tournaments/:id/predictions' element={<ProtectedRoute><TournamentPredictions /></ProtectedRoute>} />
           </Routes>
