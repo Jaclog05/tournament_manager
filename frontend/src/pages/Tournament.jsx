@@ -52,7 +52,8 @@ function Tournament() {
       style={{ paddingTop: "75px" }}
     >
       <TournamentHeader
-        name={name}
+        section="Resumen"
+        tournamentName={name}
         startDate={startDate}
         endDate={endDate}
         status={status}
