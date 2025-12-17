@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { tournamentService } from '../services/api';
 import { useParams } from 'react-router-dom';
-import PredictionCard from '../components/cards/predictionCard/PredictionCard';
+import TournamentHeader from '../components/TournamentHeader';
+import PredictionList from '../components/PredictionList';
 
 const TournamentPredictions = () => {
 
@@ -27,23 +28,18 @@ const TournamentPredictions = () => {
   const { predictions } = data;
 
   return (
-    <div className="vh-100 w-100 d-flex flex-column px-5 gap-3" style={{paddingTop: '75px'}}>
-      <div className="d-flex flex-column align-items-center gap-2">
-        <h3 className="fw-bold text-center mb-0">Predicciones con IA</h3> {/* TODO: dynamic name */}
-        <h3 className="fw-bold text-center mb-0">Liga de prueba predictiva 2024</h3> {/* TODO: dynamic name */}
-        <div className="d-flex align-items-center justify-content-center gap-2">
-          <span className="text-muted">
-            Enero 15 - Febrero 15 {/* TODO: dynamic date */}
-          </span>
-        </div>
-        <span className="badge bg-success text-center">En curso</span> {/* TODO: dynamic status */}
-      </div>
-
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-        {predictions.map((match) => (
-          <PredictionCard key={match.matchId} matchData={match} />
-        ))}
-      </div>
+    <div
+      className="vh-100 w-100 d-flex flex-column px-5 gap-3"
+      style={{paddingTop: '75px'}}
+    >
+      <TournamentHeader
+        section="Predicciones con IA"
+        tournamentName="Liga de Prueba Predictiva 2024" /* TODO: dynamic name */
+        startDate="2024-01-01T00:00:00.000Z" /* TODO: dynamic date */
+        endDate="2024-12-31T00:00:00.000Z" /* TODO: dynamic date */
+        status="En curso" /* TODO: dynamic status */
+      />
+      <PredictionList predictions={predictions} />
     </div>
   );
 };
