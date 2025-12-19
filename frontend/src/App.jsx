@@ -6,6 +6,7 @@ import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
 import Dashboard from './pages/Dashboard'
 import MyTournaments from './pages/MyTournaments'
+import TournamentLayout from './components/layout/TournamentLayout'
 import Tournament from './pages/Tournament'
 import TournamentTeams from './pages/TournamentTeams'
 import TournamentStandings from './pages/TournamentStandings'
@@ -25,11 +26,17 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/my-tournaments" element={<ProtectedRoute><MyTournaments /></ProtectedRoute>} />
-            <Route path="/tournaments/:id" element={<ProtectedRoute><Tournament /></ProtectedRoute>} />
-            <Route path="/tournaments/:id/teams" element={<ProtectedRoute><TournamentTeams /></ProtectedRoute>} />
-            <Route path="/tournaments/:id/matches" element={<ProtectedRoute><TournamentMatches /></ProtectedRoute>} />
-            <Route path='/tournaments/:id/standings' element={<ProtectedRoute><TournamentStandings /></ProtectedRoute>} />
-            <Route path='/tournaments/:id/predictions' element={<ProtectedRoute><TournamentPredictions /></ProtectedRoute>} />
+            <Route
+              path="/tournaments/:id"
+              element={<ProtectedRoute><TournamentLayout /></ProtectedRoute>}
+            >
+              <Route index element={<Tournament/>}/>
+              <Route path="teams" element={<TournamentTeams />} />
+              <Route path="matches" element={<TournamentMatches />} />
+              <Route path='standings' element={<TournamentStandings />} />
+              <Route path='predictions' element={<TournamentPredictions />} />
+            </Route>
+
           </Routes>
         </main>
       </div>
