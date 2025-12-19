@@ -5,9 +5,14 @@ import GroupStage from './GroupStage';
 import FinalChart from './FinalChart';
 
 
-function MatchesCalendar({ matches }) {
+function MatchesCalendar({ data }) {
   const [key, setKey] = useState('group-stage');
 
+  if (!data || !data.matches) {
+    return <div className="loading">Cargando Partidos...</div>;
+  }
+
+  const { matches } = data;
   const groupStageMatches = matches.filter(match => match.round === "Group Stage")
   const finalChartMatches = matches.filter(match => match.round !== "Group Stage")
 

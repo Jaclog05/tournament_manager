@@ -1,6 +1,13 @@
 import PredictionCard from "./cards/predictionCard/PredictionCard"
 
-function PredictionList({predictions}) {
+function PredictionList({data}) {
+
+  if (!data || !data.predictions) {
+    return <div className="loading">Cargando predicciones...</div>;
+  }
+
+  const { predictions } = data;
+
   return (
     <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
       {predictions.map((match) => (
