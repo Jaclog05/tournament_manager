@@ -1,10 +1,10 @@
-import { useOutletContext } from "react-router-dom";
+import { useTournament } from '../context/TournamentContext';
 import MatchList from "../components/MatchList";
 import TournamentTeamsCard from "../components/cards/TournamentTeamsCard";
 import TournamentCreatorCard from "../components/cards/TournamentCreatorCard";
 
 function Tournament() {
-  const { tournament } = useOutletContext();
+  const { tournament } = useTournament();
 
   return (
     <>

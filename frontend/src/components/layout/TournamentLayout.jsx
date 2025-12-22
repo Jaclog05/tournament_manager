@@ -1,28 +1,18 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams, Outlet } from "react-router-dom";
-import { tournamentService } from "../../services/api";
+import { useTournament } from "../../context/TournamentContext";
 import TournamentHeader from "../TournamentHeader";
 
 function TournamentLayout() {
   const { id } = useParams();
-  const [tournament, setTournament] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { loadTournament, tournament, loading, clearTournament } = useTournament();
 
   useEffect(() => {
-    const fetchBaseData = async () => {
-      try {
-        const response = await tournamentService.getById(id);
-        const data = await response.data.tournament;
-        setTournament(data);
-      } catch (error) {
-        console.error("No se pudo obtener la información base del torneo", error);
-      } finally {
-        setLoading(false)
-      }
-    };
-
-    fetchBaseData();
-  }, [id]);
+    if(id){
+      loadTournament(id);
+    }
+    return () => clearTournament();
+  }, [id, loadTournament, clearTournament]);
 
   if (loading) return <div className="vh-100 d-flex justify-content-center align-items-center">Cargando Torneo...</div>;
   if (!tournament) return <div>Torneo no encontrado</div>;
@@ -39,7 +29,7 @@ function TournamentLayout() {
         status={tournament.status}
       />
       <div className="flex-grow-1">
-        <Outlet context={{tournament, id}} />
+        <Outlet />
       </div>
     </div>
   )

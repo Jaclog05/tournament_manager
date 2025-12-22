@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
-import { useOutletContext } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { matchService } from "../services/api";
 import MatchesCalendar from "../components/MatchesCalendar";
 
 function TournamentMatches() {
-  const { id } = useOutletContext();
+  const { id } = useParams();
   const [data, setData] = useState(null);
 
   useEffect(() => {
