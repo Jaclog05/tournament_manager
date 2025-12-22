@@ -3,10 +3,12 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useLocation, useNavigate, matchPath } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import { useTournament } from '../../context/TournamentContext'
 
 const Navigation = () => {
   const location = useLocation()
   const { user, logout } = useAuth()
+  const { tournament } = useTournament()
   const navigate = useNavigate()
 
   if(['/login', '/register'].includes(location.pathname)) return null
@@ -17,7 +19,7 @@ const Navigation = () => {
 
   const getFirstName = (fullName = "") => fullName.split(" ")[0];
 
-  const tournamentName = "Liga Amateur 2024"; /* TODO: Fetch tournament name based on tournamentId */
+  const tournamentName = tournament ? tournament.name : "Cargando ..."
 
   const handleLogout = () => {
     logout()
